@@ -30,13 +30,15 @@ namespace BlogApi.Infrastructure
             await _context.SaveChangesAsync();
         }
 
-        public async Task AddCommentAsync(int postId, Comment comment)
+        public async Task<bool> AddCommentAsync(int postId, Comment comment)
         {
-            var post = await _context.BlogPosts.FindAsync(postId);
-            if (post is null) return;
+            var postExists = await _context.BlogPosts.AnyAsync(p => p.Id == postId);
+            if (!postExists)
+                return false;
 
-            post.Comments.Add(comment);
+            _context.Comments.Add(comment);
             await _context.SaveChangesAsync();
+            return true;
         }
     }
 

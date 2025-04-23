@@ -1,7 +1,10 @@
 ﻿using BlogApi.Application;
 using BlogApi.Domain.Interfaces;
 using BlogApi.Infrastructure;
+using FluentValidation.AspNetCore;
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using BlogApi.Application.Validators;
 
 namespace BlogApi.IoC
 {
@@ -15,6 +18,11 @@ namespace BlogApi.IoC
 
             services.AddScoped<IBlogPostRepository, BlogPostRepository>();
             services.AddScoped<BlogService>();
+
+            services.AddValidatorsFromAssemblyContaining<BlogPostCreateValidator>();
+            services.AddValidatorsFromAssemblyContaining<CommentCreateDtoValidator>();
+            services.AddFluentValidationAutoValidation();
+            services.AddFluentValidationClientsideAdapters();
 
             return services;
         }

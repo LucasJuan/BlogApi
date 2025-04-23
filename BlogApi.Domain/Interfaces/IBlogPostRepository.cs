@@ -5,7 +5,7 @@
         Task<List<BlogPost>> GetAllAsync();
         Task<BlogPost?> GetByIdAsync(int id);
         Task AddAsync(BlogPost post);
-        Task AddCommentAsync(int postId, Comment comment);
+        Task<bool> AddCommentAsync(int postId, Comment comment);
     }
 
 }
