@@ -9,6 +9,10 @@
   <ItemGroup>
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.4">
       <PrivateAssets>all</PrivateAssets>
@@ -23,7 +27,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BlogApi.Application\BlogApi.Application.csproj" />
     <ProjectReference Include="..\BlogApi.Domain\BlogApi.Domain.csproj" />
-    <ProjectReference Include="..\Infrastructure\BlogApi.Infrastructure.csproj" />
+    <ProjectReference Include="..\BlogApi.Infrastructure\BlogApi.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
