@@ -78,7 +78,6 @@ namespace BlogApi.Controllers
         {
             var success = await _service.AddCommentAsync(id, dto);
             if (!success) return NotFound();
-
             return NoContent();
         }
     }
