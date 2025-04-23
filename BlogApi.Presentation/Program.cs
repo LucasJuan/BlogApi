@@ -7,16 +7,30 @@ builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
-        options.JsonSerializerOptions.WriteIndented = true; 
+        options.JsonSerializerOptions.WriteIndented = true;
     });
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    {
+        Title = "Blog API",
+        Version = "v1",
+        Description = "An educational Blog API built for clean architecture practice.",
+        Contact = new Microsoft.OpenApi.Models.OpenApiContact
+        {
+            Name = "Lucas Sodré",
+            Email = "ljgsodre@outlook.com"
+        }
+    });
+});
 
 builder.Services.AddBlogApiServices(builder.Configuration);
-
-
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
