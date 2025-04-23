@@ -2,4 +2,56 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/.vs
+# Build e arquivos temporários
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Logs
+*.log
+
+# VS Code settings
+.vscode/
+
+# Visual Studio Code Coverage
+*.coverage
+*.coveragexml
+TestResults/
+
+# Mac OS
+.DS_Store
+
+# Rider IDE
+.idea/
+
+# Migrations (se quiser ignorar, mas normalmente mantemos no git)
+# **Descomente se você quiser ignorar Migrations**
+# **/Migrations/
+
+# SQLite (caso use no futuro)
+*.db
+*.sqlite
+
+# Configs de ambiente
+.env
+
+# Dotnet Secrets
+secrets.json
+
+# Pacotes
+*.nupkg
+packages/
+.nuget/
+
+# Configurações de publish
+app.publish/
+
+# Arquivos gerados por publish
+*.db-shm
+*.db-wal
+
+# VS para Linux/macOS
+.vs/
