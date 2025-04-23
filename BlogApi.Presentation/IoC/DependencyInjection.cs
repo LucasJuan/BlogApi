@@ -21,6 +21,7 @@ namespace BlogApi.IoC
             services.AddScoped<IBlogPostRepository, BlogPostRepository>();
             services.AddScoped<IBlogPost, BlogPostService>();
             services.AddScoped<IBlogCommentRepository, BlogCommentRepository>();
+            services.AddScoped<IBlogComment, BlogCommentService>();
 
             services.AddValidatorsFromAssemblyContaining<BlogPostCreateValidator>();
             services.AddValidatorsFromAssemblyContaining<CommentCreateDtoValidator>();
