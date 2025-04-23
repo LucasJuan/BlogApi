@@ -1,7 +1,8 @@
 ﻿using BlogApi.Application;
 using BlogApi.Application.Dtos;
+using BlogApi.Application.Interfaces;
+using BlogApi.Domain;
 using Microsoft.AspNetCore.Mvc;
-using ILogger = Serilog.ILogger;
 
 namespace BlogApi.Controllers
 {
@@ -9,16 +10,12 @@ namespace BlogApi.Controllers
     [Route("api/[controller]")]
     public class PostsController : ControllerBase
     {
-        private readonly BlogService _service;
-        private readonly ILogger _logger;
+        private readonly IBlogPost _service;
 
-        public PostsController(BlogService service, ILogger logger)
+        public PostsController(BlogPostService service)
         {
             _service = service;
-            _logger = logger;
         }
-
-        //fazer um tratamento para o erro 500
 
         /// <summary>
         /// Retrieves all blog posts with their comment count.
@@ -29,8 +26,7 @@ namespace BlogApi.Controllers
         public async Task<IActionResult> GetAll()
         {
             var posts = await _service.GetAllPostsAsync();
-            var result = posts.Select(p => new
-            {
+            var result = posts.Select(p => new {
                 p.Id,
                 p.Title,
                 CommentCount = p.Comments.Count
@@ -63,20 +59,10 @@ namespace BlogApi.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Create([FromBody] BlogPostCreateDto dto)
         {
-            try
-            {
-                var createdPost = await _service.AddPostAsync(dto);
-                return CreatedAtAction(nameof(Get), new { id = createdPost.Id }, createdPost);
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, "Failed to add blog post.");
-                return StatusCode(500, new { Message = "Internal Server Error" });
-            }
-
+            var createdPost = await _service.AddPostAsync(dto);
+            return CreatedAtAction(nameof(Get), new { id = createdPost.Id }, createdPost);
         }
 
         /// <summary>
@@ -89,22 +75,11 @@ namespace BlogApi.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> AddComment(int id, [FromBody] CommentCreateDto dto)
+        public async Task<IActionResult> AddComment(int id, [FromBody] BlogCommentCreateDto dto)
         {
-            try
-            {
-                var success = await _service.AddCommentAsync(id, dto);
-                if (!success) return NotFound();
-                return NoContent();
-
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, "Failed to add comment to post with ID {PostId}", id);
-                return StatusCode(500, new { Message = "Internal Server Error" });
-            }
-
+            var success = await _service.AddCommentAsync(id, dto);
+            if (!success) return NotFound();
+            return NoContent();
         }
     }
 }

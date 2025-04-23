@@ -6,6 +6,7 @@ using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using BlogApi.Application.Validators;
 using Serilog;
+using BlogApi.Application.Interfaces;
 
 namespace BlogApi.IoC
 {
@@ -18,7 +19,8 @@ namespace BlogApi.IoC
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IBlogPostRepository, BlogPostRepository>();
-            services.AddScoped<BlogService>();
+            services.AddScoped<IBlogPost, BlogPostService>();
+            services.AddScoped<IBlogCommentRepository, BlogCommentRepository>();
 
             services.AddValidatorsFromAssemblyContaining<BlogPostCreateValidator>();
             services.AddValidatorsFromAssemblyContaining<CommentCreateDtoValidator>();

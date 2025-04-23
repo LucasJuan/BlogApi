@@ -25,29 +25,7 @@ namespace BlogApi.Infrastructure
             await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> AddCommentAsync(int postId, Comment comment)
-        {
-            var postExists = await _context.BlogPosts.AnyAsync(p => p.Id == postId);
-            if (!postExists)
-                return false;
 
-            _context.Comments.Add(comment);
-            await _context.SaveChangesAsync();
-            return true;
-        }
-
-        public async Task<bool> UpdateAsync(BlogPost post)
-        {
-            var existing = await _context.BlogPosts.FindAsync(post.Id);
-            if (existing is null)
-                return false;
-
-            existing.Title = post.Title;
-            existing.Content = post.Content;
-
-            await _context.SaveChangesAsync();
-            return true;
-        }
 
     }
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BlogApi.Application.Validators
 {
-    public class CommentCreateDtoValidator : AbstractValidator<CommentCreateDto>
+    public class CommentCreateDtoValidator : AbstractValidator<BlogCommentCreateDto>
     {
         public CommentCreateDtoValidator()
         {

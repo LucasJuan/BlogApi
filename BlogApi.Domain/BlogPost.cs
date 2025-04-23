@@ -1,6 +1,4 @@
-﻿using System.Xml.Linq;
-
-namespace BlogApi.Domain
+﻿namespace BlogApi.Domain
 {
     public class BlogPost
     {

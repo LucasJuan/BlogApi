@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlogApi.Application.Dtos
 {
-    public class CommentCreateDto
+    public class BlogCommentCreateDto
     {
         public string Author { get; set; }
         public string Content { get; set; }
