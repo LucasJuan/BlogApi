@@ -15,14 +15,14 @@ namespace BlogApi.Application
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
+        //CRIAR INTERFACES PARA FAZER O TESTE DA SERVICE
+
         public Task<List<BlogPost>> GetAllPostsAsync() => _repository.GetAllAsync();
 
         public Task<BlogPost?> GetPostByIdAsync(int id) => _repository.GetByIdAsync(id);
 
         public async Task<BlogPost> AddPostAsync(BlogPostCreateDto dto)
         {
-            try
-            {
                 var post = new BlogPost
                 {
                     Title = dto.Title,
@@ -31,18 +31,12 @@ namespace BlogApi.Application
 
                 await _repository.AddAsync(post);
                 return post;
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, "Failed to add blog post.");
-                throw;
-            }
+
         }
 
         public async Task<bool> AddCommentAsync(int postId, CommentCreateDto dto)
         {
-            try
-            {
+         
                 var comment = new Comment
                 {
                     Content = dto.Content,
@@ -50,13 +44,7 @@ namespace BlogApi.Application
                     BlogPostId = postId
                 };
 
-                return await _repository.AddCommentAsync(postId, comment);
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex, "Failed to add comment to post with ID {PostId}", postId);
-                throw;
-            }
+                return await _repository.AddCommentAsync(postId, comment);           
         }
     }
 }
