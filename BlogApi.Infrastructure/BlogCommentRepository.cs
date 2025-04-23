@@ -26,12 +26,13 @@ namespace BlogApi.Infrastructure
         public async Task<List<Comment>> GetAllAsync() =>
             await _context.Comments.Include(c => c.BlogPost).ToListAsync();
 
-        //public async Task<Comment> GetByIdAsync(int postId)
-        //{
-        //    return await _context.Comments
-        //                         .Where(c => c.BlogPostId == postId)
-        //                         .ToListAsync();
-        //}
+        public async Task<Comment?> GetByIdAsync(int commentId)
+        {
+            return await _context.Comments
+                                 .Include(c => c.BlogPost)
+                                 .FirstOrDefaultAsync(c => c.Id == commentId);
+        }
+
 
     }
 }
