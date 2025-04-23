@@ -5,6 +5,7 @@ using FluentValidation.AspNetCore;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using BlogApi.Application.Validators;
+using Serilog;
 
 namespace BlogApi.IoC
 {
@@ -23,6 +24,8 @@ namespace BlogApi.IoC
             services.AddValidatorsFromAssemblyContaining<CommentCreateDtoValidator>();
             services.AddFluentValidationAutoValidation();
             services.AddFluentValidationClientsideAdapters();
+
+            services.AddSingleton<Serilog.ILogger>(Log.Logger);
 
             return services;
         }

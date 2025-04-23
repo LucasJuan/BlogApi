@@ -1,4 +1,5 @@
 using BlogApi.IoC;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,12 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddBlogApiServices(builder.Configuration);
 
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .MinimumLevel.Information()
+    .CreateLogger();
+
+builder.Host.UseSerilog();
 
 var app = builder.Build();
 

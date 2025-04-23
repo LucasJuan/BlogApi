@@ -35,6 +35,20 @@ namespace BlogApi.Infrastructure
             await _context.SaveChangesAsync();
             return true;
         }
+
+        public async Task<bool> UpdateAsync(BlogPost post)
+        {
+            var existing = await _context.BlogPosts.FindAsync(post.Id);
+            if (existing is null)
+                return false;
+
+            existing.Title = post.Title;
+            existing.Content = post.Content;
+
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
     }
 
 }
