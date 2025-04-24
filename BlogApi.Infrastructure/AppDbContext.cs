@@ -1,7 +1,5 @@
 ﻿using BlogApi.Domain;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Xml.Linq;
 
 namespace BlogApi.Infrastructure
 {
