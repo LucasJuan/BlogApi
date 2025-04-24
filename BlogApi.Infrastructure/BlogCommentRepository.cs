@@ -24,7 +24,8 @@ namespace BlogApi.Infrastructure
         }
 
         public async Task<List<Comment>> GetAllAsync() =>
-            await _context.Comments.Include(c => c.BlogPost).ToListAsync();
+            await _context.Comments.AsNoTracking()
+                                   .Include(c => c.BlogPost).ToListAsync();
 
         public async Task<Comment?> GetByIdAsync(int commentId)
         {

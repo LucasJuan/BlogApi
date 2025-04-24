@@ -13,7 +13,9 @@ public class BlogPostRepository : IBlogPostRepository
     }
 
     public async Task<List<BlogPost>> GetAllAsync() =>
-        await _context.BlogPosts.Include(p => p.Comments).ToListAsync();
+        await _context.BlogPosts
+                                .AsNoTracking()
+                                .Include(p => p.Comments).ToListAsync();
 
     public async Task<BlogPost?> GetByIdAsync(int id) =>
         await _context.BlogPosts.Include(p => p.Comments).FirstOrDefaultAsync(p => p.Id == id);
